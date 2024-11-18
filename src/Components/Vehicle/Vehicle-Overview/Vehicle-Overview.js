@@ -1,8 +1,15 @@
 import axios from 'axios';
 import React, { useCallback, useEffect, useState } from 'react';
 import VehicleCard from '../Vehicle-Card/Vehicle-Card';
+import { useDispatch, useSelector } from 'react-redux';
+import { VehicleActions } from '../../../store/Vehicle.reducer';
 
 export default function VehicleOverview() {
+
+    const dispatch = useDispatch();
+
+   const apiResp =  useSelector((state) => state.vehicle.vehicleApiResponse)
+   console.log(apiResp);
 
     const [vehicleInfo, setVehicleInfo] = useState(null);
 
@@ -21,6 +28,10 @@ export default function VehicleOverview() {
     useEffect(() => {
         fetchVehicleData()
     }, [fetchVehicleData])
+
+    useEffect(() => {
+        dispatch(VehicleActions.onFetchVehicleSuccess({name: 'Updated from COmp...'}))
+    }, [dispatch])
 
     return (
         <div>
