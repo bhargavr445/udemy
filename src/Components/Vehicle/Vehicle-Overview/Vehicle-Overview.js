@@ -1,17 +1,19 @@
 import axios from 'axios';
 import React, { useCallback, useEffect, useState } from 'react';
-import VehicleCard from '../Vehicle-Card/Vehicle-Card';
 import { useDispatch, useSelector } from 'react-redux';
 import { VehicleActions } from '../../../store/Vehicle.reducer';
+import VehicleCard from '../Vehicle-Card/Vehicle-Card';
+import Pagination from '../../../Commons/Components/Pagination';
 
 export default function VehicleOverview() {
 
     const dispatch = useDispatch();
 
-   const apiResp =  useSelector((state) => state.vehicle.vehicleApiResponse)
-   console.log(apiResp);
+    const apiResp = useSelector((state) => state.vehicle.vehicleApiResponse)
+    console.log(apiResp);
 
     const [vehicleInfo, setVehicleInfo] = useState(null);
+    const [paginatedRecords, setPaginatedRecords] = useState([]);
 
     function addCustomId(response) {
         setVehicleInfo({ ...response, Results: response?.Results?.map((result) => ({ ...result, customId: `${result.MakeId}${result.VehicleTypeId}` })) })
@@ -30,12 +32,21 @@ export default function VehicleOverview() {
     }, [fetchVehicleData])
 
     useEffect(() => {
-        dispatch(VehicleActions.onFetchVehicleSuccess({name: 'Updated from COmp...'}))
+        dispatch(VehicleActions.onFetchVehicleSuccess({ name: 'Updated from COmp...' }))
     }, [dispatch])
+
+    function paginatedListHandler(dataList) {
+        console.log(dataList);
+        setPaginatedRecords(dataList)
+    }
+
+    let vehicleCardsWithPagination = vehicleInfo?.Results.length > 0 ? <div> {paginatedRecords.map((vehicle) => <VehicleCard key={vehicle.customId} vehicle={vehicle} />)}
+            <Pagination dataList={vehicleInfo?.Results} paginatedListHandler={paginatedListHandler}/></div> : null
 
     return (
         <div>
-            {vehicleInfo?.Results.map((vehicle) => <VehicleCard key={vehicle.customId} vehicle={vehicle} />)}
+            {vehicleCardsWithPagination}
+           
         </div>
     )
 }

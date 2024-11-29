@@ -16,7 +16,8 @@ export default function HeaderMenu() {
     // { label: 'Game', navigationUrl: '/game' },
     // { label: 'Population', navigationUrl: '/population' },
     { label: 'Movies', navigationUrl: '/movies' },
-    { label: 'Udemy', navigationUrl: '/udemy' }
+    { label: 'Udemy', navigationUrl: '/udemy' },
+    { label: 'University', navigationUrl: '/university' }
   ]
   return (
     <header>

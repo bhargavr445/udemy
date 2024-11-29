@@ -8,7 +8,7 @@ const appStoreSlice = createSlice({
     reducers: {
         updateUserName(state, action) {
             state.userName = action.payload;
-        }
+        },
     }
 })
 

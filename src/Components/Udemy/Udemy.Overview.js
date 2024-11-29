@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
-import { UdemyUserInfoContext } from './Context/User-Info-Context';
+import { UdemyUserInfoContext } from '../../Context/User-Info-Context/User-Info-Context';
 import classes from './Udemy-Overview.module.css';
 
 export default function UdemyOverview() {

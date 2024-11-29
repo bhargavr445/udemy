@@ -9,6 +9,7 @@ import { CartContextProvider } from './Context/Cart-Context/Cart-Context';
 import VehicleOverview from './Components/Vehicle/Vehicle-Overview/Vehicle-Overview';
 import store from './store/Store'
 import { Provider } from 'react-redux';
+import UniversityOverview from './Components/University/University-Overview';
 const UdemyOverview = lazy(() => import('./Components/Udemy/Udemy.Overview'));
 const GameOverview = lazy(() => import('./Components/Game/Game-Overview/Game-Overview'));
 
@@ -28,6 +29,9 @@ const router = createBrowserRouter([
       },
       {
         path: 'vehicle', element: <VehicleOverview />
+      },
+      {
+        path: 'university', element: <UniversityOverview />
       }
     ]
   },
@@ -37,6 +41,7 @@ function App() {
   return (
     <CartContextProvider>
       <Provider store={store}>
+
       <RouterProvider router={router} />
       </Provider>
     </CartContextProvider>

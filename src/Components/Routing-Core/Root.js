@@ -6,6 +6,7 @@ export default function RootLayout() {
     return (
         <>
             <HeaderMenu />
+            {/* <my-component /> */}
             <div className='main'>
                 <Outlet />
             </div>

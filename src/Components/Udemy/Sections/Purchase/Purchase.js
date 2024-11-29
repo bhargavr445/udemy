@@ -1,5 +1,5 @@
 import React from 'react'
-import { useUdemyContext } from '../../Context/User-Info-Context'
+import { useUdemyContext } from '../../../../Context/User-Info-Context/User-Info-Context'
 
 export default function Purchase() {
 
