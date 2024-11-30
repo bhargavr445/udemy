@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
-import VehicleReducer from "./Vehicle.reducer";
+import UniversityReducer from '../Components/University/store/UniversityStore';
 import appStoreReducer from "./App.reducer";
+import VehicleReducer from "./Vehicle.reducer";
 
 const store = configureStore({
     reducer: {
         app: appStoreReducer,
-        vehicle: VehicleReducer
+        vehicle: VehicleReducer,
+        university: UniversityReducer
     }
 })
 

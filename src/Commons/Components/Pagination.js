@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react';
 import AppConstants from '../Constants/App-Constants';
 
 const Pagination = ({ dataList, paginatedListHandler, incomingPageSize }) => {
@@ -83,11 +83,14 @@ const Pagination = ({ dataList, paginatedListHandler, incomingPageSize }) => {
 
     return (
         <div>
-            <button id='firstButton' className="table-btn mat-h-20" disabled={disableFirstPage} onClick={() => { onFirstCLick() }}>{buttonLabels.first}</button>
-            <button id='previousButton' className="table-btn mat-h-20" disabled={disableFirstPage} onClick={() => { onPreviousCLick() }}>{buttonLabels.previous}</button>
-            <span className="paging-info">&nbsp;Displaying {displayRecordsRange} of {dataList.length} Records || Page {pageNumber} of {roundedNumber}</span>
-            <button id='nextButton' className="table-btn mat-h-20" disabled={disableLastPage} onClick={() => { onNextCLick() }}>{buttonLabels.next}</button>
-            <button id='lastButton' className="table-btn mat-h-20" disabled={disableLastPage} onClick={() => { onLastCLick() }}>{buttonLabels.last}</button>
+
+            { dataList.length > 0 ? <div>
+                <button id='firstButton' className="table-btn mat-h-20" disabled={disableFirstPage} onClick={() => { onFirstCLick() }}>{buttonLabels.first}</button>
+                <button id='previousButton' className="table-btn mat-h-20" disabled={disableFirstPage} onClick={() => { onPreviousCLick() }}>{buttonLabels.previous}</button>
+                <span className="paging-info">&nbsp;Displaying {displayRecordsRange} of {dataList.length} Records || Page {pageNumber} of {roundedNumber}</span>
+                <button id='nextButton' className="table-btn mat-h-20" disabled={disableLastPage} onClick={() => { onNextCLick() }}>{buttonLabels.next}</button>
+                <button id='lastButton' className="table-btn mat-h-20" disabled={disableLastPage} onClick={() => { onLastCLick() }}>{buttonLabels.last}</button>
+            </div> : null}
         </div>
     )
 }

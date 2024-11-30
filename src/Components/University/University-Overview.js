@@ -1,17 +1,27 @@
-import axios from 'axios';
-import React, { useCallback, useEffect, useState } from 'react'
-import UniversityTable from './University-Table';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Pagination from '../../Commons/Components/Pagination';
+import { useUniversityContext } from '../../Context/university/UniversityContext';
+import { fetchUniversityData } from './store/UniversityStore';
+import UniversityTable from './University-Table';
 
 const props = ['country', 'name'];
 
 function UniversityOverview() {
 
-    const [universityList, setUniversityList] = useState([]);
-    const [apiLoading, setApiLoading] = useState(false);
+    const { selectedUniversities } = useUniversityContext()
     const [filterText, setFilterText] = useState('');
     const [filteredRecords, setFilteredRecords] = useState([]);
     const [paginatedRecords, setPaginatedRecords] = useState([]);
+
+    const dispatch = useDispatch();
+    const universityList = useSelector((state) => state.university.universityApiResponse);
+    const apiLoading = useSelector((state) => state.university.universityApiLoading);
+
+
+    useEffect(() => {
+        dispatch(fetchUniversityData());
+    }, [dispatch]);
 
     const filterRecords = (list, filterText) => {
         const filteredRecordsList = list.filter((record) => props.some((prop) => record[prop].toLowerCase().includes(filterText.toLowerCase())));
@@ -22,25 +32,10 @@ function UniversityOverview() {
         filterRecords(universityList, filterText);
     }, [universityList, filterText]);
 
-    const fetchUniversities = useCallback(async () => {
-        setApiLoading(true);
-        const response = await axios.get('http://universities.hipolabs.com/search');
-        if (response.status !== 200) {
-            setApiLoading(false);
-            throw new Error('Api call Failed...');
-        }
-        setUniversityList(response.data);
-        setApiLoading(false);
-    }, []);
-
-    useEffect(() => {
-        fetchUniversities()
-    }, [fetchUniversities]);
-
     let universityCardComp = apiLoading ? 'Loading...' : '';
     let countSection = apiLoading || <p>{filteredRecords?.length} Records Found</p>;
     if (paginatedRecords.length > 0) {
-        universityCardComp = <UniversityTable list={paginatedRecords} />;
+        universityCardComp = <UniversityTable key='university_table' list={paginatedRecords} />;
     }
 
     const paginatedListHandler = (dataList) => {
@@ -50,11 +45,11 @@ function UniversityOverview() {
     return (
         <div>
             <input type="text" placeholder='Filter Records' value={filterText} onChange={(e) => setFilterText(e.target.value)} />
-            <button id='lastButton' className="table-btn mat-h-20" onClick={() => { fetchUniversities() }}>Refresh</button>
+            <button id='lastButton' className="table-btn mat-h-20">Refresh-{selectedUniversities.length}</button>
             {countSection}
             {universityCardComp}
             <div className='pagination_items '>
-            <Pagination dataList={filteredRecords} paginatedListHandler={paginatedListHandler} incomingPageSize={10} />
+                <Pagination dataList={filteredRecords} paginatedListHandler={paginatedListHandler} incomingPageSize={10} />
             </div>
         </div>
     )
