@@ -19,12 +19,11 @@ const useFetch = (url) => {
                 setData(null);
                 setError(error);
                 setLoading(false);
-            }
-        }
-        fetchData()
+            };
+        };
+        fetchData();
     }, [url]);
-    return { apiResponse: data, apiLoading: loading, apiError: error }
-
-}
+    return { apiResponse: data, apiLoading: loading, apiError: error };
+};
 
 export default useFetch;

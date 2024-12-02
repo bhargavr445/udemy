@@ -9,6 +9,7 @@ function UniversityTanstrack() {
   const [selectedCountry, setSelectedCountry] = useState('');
   const [paginatedRecords, setPaginatedRecords] = useState([]);
 
+  // fetching countrys
   const {
     data: countrysListApiResponse,
     apiLoading: countrysListApiLoading
@@ -16,8 +17,9 @@ function UniversityTanstrack() {
     queryKey: ['countrys'],
     queryFn: fetchCountrys,
     staleTime: Infinity,
-  })
+  });
 
+  // fetching universities based on country name selection
   const {
     data,
     isLoading,
@@ -31,11 +33,11 @@ function UniversityTanstrack() {
 
   const countrySelectionChangehandler = (e) => {
     setSelectedCountry(e);
-  }
+  };
 
   const paginatedListHandler = (dataList) => {
-    setPaginatedRecords(dataList)
-  }
+    setPaginatedRecords(dataList);
+  };
 
   let countSection = isLoading || <p>{data?.data?.length} Records Found</p>;
   let universityListComp = isLoading ? 'Table Data Loading...' : '';
@@ -46,7 +48,7 @@ function UniversityTanstrack() {
         <Pagination dataList={data.data} paginatedListHandler={paginatedListHandler} incomingPageSize={10} />
       </div>
     </div>
-  }
+  };
 
   let countrysListSelectDropdown = 'Loading...';
   if (!countrysListApiLoading && countrysListApiResponse) {
@@ -54,7 +56,7 @@ function UniversityTanstrack() {
       <option value="" key="initial_value">Select Option</option>
       {countrysListApiResponse?.data.map((country) => <option value={country.code} key={country.name}>{country.name}</option>)}
     </select>
-  }
+  };
 
   return (
     <div>
@@ -62,7 +64,7 @@ function UniversityTanstrack() {
       {countSection}
       {universityListComp}
     </div>
-  )
-}
+  );
+};
 
 export default UniversityTanstrack;
