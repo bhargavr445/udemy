@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
-import { UdemyUserInfoContext } from '../../Context/User-Info-Context/User-Info-Context';
 import classes from './Udemy-Overview.module.css';
 
 export default function UdemyOverview() {
-  const [userInfo] = useState({ name: 'Bhargav', skillSet: 'Angular' });
+  // const [userInfo] = useState({ name: 'Bhargav', skillSet: 'Angular' });
   
   const udemyNavItems = [
     { label: 'Purchase', path: '/udemy/purchase', isActive: false },
@@ -16,7 +15,9 @@ export default function UdemyOverview() {
   // }
 
   return (
-    <UdemyUserInfoContext.Provider value={userInfo}>
+    // <UdemyUserInfoContext.Provider value={userInfo}>
+    <div>
+
       <div className={classes.horizontal_menu}>
 
 
@@ -29,6 +30,7 @@ export default function UdemyOverview() {
         </NavLink>))}
       </div>
       <Outlet />
-    </UdemyUserInfoContext.Provider>
+    </div>
+    // </UdemyUserInfoContext.Provider>
   )
 }

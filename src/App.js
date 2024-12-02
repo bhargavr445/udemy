@@ -1,6 +1,6 @@
 import { lazy } from 'react';
 import { Provider } from 'react-redux';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom';
 import './App.css';
 import RootLayout from './Components/Routing-Core/Root';
 import RouteError from './Components/Routing-Core/Route-Error';
@@ -10,6 +10,9 @@ import VehicleOverview from './Components/Vehicle/Vehicle-Overview/Vehicle-Overv
 import { CartContextProvider } from './Context/Cart-Context/Cart-Context';
 import SuspenseWrapper from './Routing-Config/Suspense-Wrapper';
 import store from './store/Store';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import Login from './Components/login/Login';
+import UniversityTanstrack from './Components/university-tanstrack/universityTanstrack';
 const UdemyOverview = lazy(() => import('./Components/Udemy/Udemy.Overview'));
 const GameOverview = lazy(() => import('./Components/Game/Game-Overview/Game-Overview'));
 
@@ -17,6 +20,10 @@ const GameOverview = lazy(() => import('./Components/Game/Game-Overview/Game-Ove
 const router = createBrowserRouter([
   {
     path: '/', element: <RootLayout />, errorElement: <RouteError />, children: [
+      { index: true, element: <Navigate to="login" /> },
+      {
+        path: 'login', element: <Login />
+      },
       {
         path: '/movies', element: <SuspenseWrapper><GameOverview /> </SuspenseWrapper>
       },
@@ -28,19 +35,24 @@ const router = createBrowserRouter([
       },
       {
         path: 'university', element: <University />
+      },
+      {
+        path: 'university-tanstrack', element: <UniversityTanstrack />
       }
     ]
   },
 ])
-
+const query = new QueryClient()
 function App() {
-  
+
   return (
-    <CartContextProvider>
-      <Provider store={store}>
-      <RouterProvider router={router} />
-      </Provider>
-    </CartContextProvider>
+    <QueryClientProvider client={query}>
+      <CartContextProvider>
+        <Provider store={store}>
+          <RouterProvider router={router} />
+        </Provider>
+      </CartContextProvider>
+    </QueryClientProvider>
   );
 }
 

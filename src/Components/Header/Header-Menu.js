@@ -17,7 +17,8 @@ export default function HeaderMenu() {
     // { label: 'Population', navigationUrl: '/population' },
     { label: 'Movies', navigationUrl: '/movies' },
     { label: 'Udemy', navigationUrl: '/udemy' },
-    { label: 'University', navigationUrl: '/university' }
+    { label: 'University', navigationUrl: '/university' },
+    { label: 'University Tanstrack', navigationUrl: '/university-tanstrack' }
   ]
   return (
     <header>

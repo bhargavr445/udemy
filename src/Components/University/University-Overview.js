@@ -1,7 +1,10 @@
+import { useQuery } from '@tanstack/react-query';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Pagination from '../../Commons/Components/Pagination';
 import { useUniversityContext } from '../../Context/university/UniversityContext';
+// import useFetch from '../../hooks/useFetch';
+import { fetchUniversities } from '../../http/University';
 import { fetchUniversityData } from './store/UniversityStore';
 import UniversityTable from './University-Table';
 
@@ -9,11 +12,19 @@ const props = ['country', 'name'];
 
 function UniversityOverview() {
 
-    const { selectedUniversities } = useUniversityContext()
+    const queryData = useQuery({
+        queryKey: ['universityList'],
+        queryFn: fetchUniversities
+    });
+    console.log(queryData);
+
+
+    // const { apiResponse } = useFetch('http://localhost:3010/api/countrys');
+    // console.log(apiResponse);
+    const { selectedUniversities } = useUniversityContext();
     const [filterText, setFilterText] = useState('');
     const [filteredRecords, setFilteredRecords] = useState([]);
     const [paginatedRecords, setPaginatedRecords] = useState([]);
-
     const dispatch = useDispatch();
     const universityList = useSelector((state) => state.university.universityApiResponse);
     const apiLoading = useSelector((state) => state.university.universityApiLoading);
