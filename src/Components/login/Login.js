@@ -10,7 +10,8 @@ function Login() {
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
 
-    async function login() {
+    async function login(e) {
+        e.preventDefault();
        const response =  await axios.post('http://localhost:3010/api/login', {userName, password});
        if(response.status !== 200) {
         throw Error('Login failed');
@@ -21,7 +22,7 @@ function Login() {
   return (
       <div className={classes.login_main}>
           <div className={classes.login_container}>
-              <form>
+              <form id='login_form'>
 
                   <div className={classes.form_group}>
                       <label htmlFor='username'>User Name:</label>
@@ -35,7 +36,7 @@ function Login() {
                   </div>
 
 
-                  <button onClick={login}>Login</button>
+                  <button form='login_form' onClick={login}>Login</button>
               </form>
           </div>
       </div>

@@ -2,11 +2,20 @@ import React, { lazy, Suspense, useState } from 'react';
 import Pagination from '../../../Commons/Components/Pagination.js';
 import useFetch from '../../../hooks/useFetch.js';
 import './Game-Overview.css';
+import CustomSelect from '../../../Commons/Components/CustomSelect.js';
 const GameCard = lazy(() => import('../Game-Card/Game-Card.js'));
 const GameCardSkeleton = lazy(() => import('../Game-Card-Skeleton/Game-Card-Skeleton.js'));
 
 
 function GameOverview() {
+
+    const optionsList = [
+        {gameType: 'PC', gameCode: 'pc'},
+        {gameType: 'xbox', gameCode: 'xb'},
+        {gameType: 'PS', gameCode: 'ps'},
+        {gameType: 'Mobile', gameCode: 'mb'},
+        {gameType: 'Tab', gameCode: 'tb'},
+    ]
 
     const [paginatedRecords, setPaginatedRecords] = useState([]);
 
@@ -21,6 +30,10 @@ function GameOverview() {
         setPaginatedRecords(dataList)
     }
 
+    function onOptionSelection(data) {
+        console.log(data);
+    }
+
     const cardsSkeleton = <div className='cards-container'><GameCardSkeleton /></div>
     let apiResponseInErrorcenario = countrysListApiErrorResponse ? <p>Something went wrong...</p> : <p>No Records Found</p>
     let gamesCardComponent = countrysListApiLoading ? cardsSkeleton : apiResponseInErrorcenario;
@@ -32,10 +45,12 @@ function GameOverview() {
     }
 
     return (
-
+        <>
+        <CustomSelect optionsList={optionsList} displayProp={'gameType'} onOptionSelection={onOptionSelection}/>
         <Suspense fallback={<div>Loading...</div>}>
             {gamesCardComponent}
         </Suspense>
+        </>
     )
 }
 

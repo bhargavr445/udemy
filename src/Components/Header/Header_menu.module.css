@@ -68,3 +68,10 @@
 .menu_item.cart {
     margin-left: auto; /* Push the cart icon to the right */
 }
+
+.section_count {
+    padding: 2px 5px;
+    background-color: red;
+    border-radius: 10px;
+    margin-right: 5px;
+}

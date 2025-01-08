@@ -26,7 +26,9 @@ export default function HeaderMenu() {
         <nav className={classes.navbar}>
           <ul className={classes.menu}>
             {navItems.map((navItem) => <li key={navItem.navigationUrl} className={classes.menu_item}>
-              <NavLink className={({ isActive }) => isActive ? classes.active : undefined} to={navItem.navigationUrl}>{navItem.label}</NavLink>
+              <NavLink className={({ isActive }) => isActive ? classes.active : undefined} to={navItem.navigationUrl}>
+                {/* <span className={classes.section_count}>1</span> */}
+                {navItem.label}</NavLink>
             </li>
             )}
             <li className={`${classes.menu_item} ${classes.cart}`}>

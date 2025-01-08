@@ -41,7 +41,7 @@ export default function VehicleOverview() {
     }
 
     let vehicleCardsWithPagination = vehicleInfo?.Results.length > 0 ? <div> {paginatedRecords.map((vehicle) => <VehicleCard key={vehicle.customId} vehicle={vehicle} />)}
-            <Pagination dataList={vehicleInfo?.Results} paginatedListHandler={paginatedListHandler}/></div> : null
+            <Pagination dataList={vehicleInfo?.Results} paginatedListHandler={paginatedListHandler} incomingPageSize={9}/></div> : null
 
     return (
         <div>
