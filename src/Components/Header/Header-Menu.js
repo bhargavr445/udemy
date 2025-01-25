@@ -2,9 +2,11 @@ import React, { useContext } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { CartContext } from '../../Context/Cart-Context/Cart-Context';
 import shoppingicon from '../../shopping-cart-dark.png';
+import imageIcon from '../../image.png';
 import classes from './Header_menu.module.css';
 
 export default function HeaderMenu() {
+  console.log('Header...');
   const {noOfItems} = useContext(CartContext);
 
   const navItems = [
@@ -37,6 +39,14 @@ export default function HeaderMenu() {
                     <span className={classes.cart_count}>{noOfItems}</span>
                 </Link>
             </li>
+
+            {/* <li className={`${classes.menu_item} ${classes.cart}`}>
+                <Link>
+                    <img src={imageIcon} className={classes.cart_icon} alt='no url found' />
+                    <span className={classes.cart_count}>{noOfItems}</span>
+                </Link>
+            </li> */}
+
           </ul>
         </nav>
       </div>
