@@ -1,13 +1,19 @@
-import React, { useContext } from 'react';
+import React, { useContext, use } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { CartContext } from '../../Context/Cart-Context/Cart-Context';
 import shoppingicon from '../../shopping-cart-dark.png';
 import imageIcon from '../../image.png';
 import classes from './Header_menu.module.css';
+import { UserProfileContext } from '../../Context/userProfileContext';
 
 export default function HeaderMenu() {
   console.log('Header...');
   const {noOfItems} = useContext(CartContext);
+
+      const {userProfile} = use(UserProfileContext)
+      console.log(userProfile);
+      
+  
 
   const navItems = [
     // { label: 'Home', navigationUrl: '/home' },
@@ -39,6 +45,8 @@ export default function HeaderMenu() {
                     <span className={classes.cart_count}>{noOfItems}</span>
                 </Link>
             </li>
+            <li>{userProfile?.userName}</li>
+            
 
             {/* <li className={`${classes.menu_item} ${classes.cart}`}>
                 <Link>

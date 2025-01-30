@@ -3,6 +3,7 @@ import Pagination from '../../../Commons/Components/Pagination.js';
 import useFetch from '../../../hooks/useFetch.js';
 import './Game-Overview.css';
 import CustomSelect from '../../../Commons/Components/CustomSelect.js';
+import GameCounter from '../GameCounter.js';
 const GameCard = lazy(() => import('../Game-Card/Game-Card.js'));
 const GameCardSkeleton = lazy(() => import('../Game-Card-Skeleton/Game-Card-Skeleton.js'));
 
@@ -46,6 +47,7 @@ function GameOverview() {
 
     return (
         <>
+       < GameCounter />
         <CustomSelect optionsList={optionsList} displayProp={'gameType'} onOptionSelection={onOptionSelection}/>
         <Suspense fallback={<div>Loading...</div>}>
             {gamesCardComponent}

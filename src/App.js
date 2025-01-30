@@ -13,6 +13,8 @@ import store from './store/Store';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import Login from './Components/login/Login';
 import UniversityTanstrack from './Components/university-tanstrack/universityTanstrack';
+import { UserProfileContextProvider } from './Context/userProfileContext';
+import UserProfileCheck from './Commons/Components/UserProfileCheck';
 const UdemyOverview = lazy(() => import('./Components/Udemy/Udemy.Overview'));
 const GameOverview = lazy(() => import('./Components/Game/Game-Overview/Game-Overview'));
 
@@ -31,7 +33,7 @@ const router = createBrowserRouter([
         path: '/udemy', element: <SuspenseWrapper> <UdemyOverview /> </SuspenseWrapper>, children: UdemyChildRoutes
       },
       {
-        path: 'vehicle', element: <VehicleOverview />
+        path: 'vehicle', element: <UserProfileCheck permission={'U_INSTRUCTOR'}> <VehicleOverview /></UserProfileCheck>
       },
       {
         path: 'university', element: <University />
@@ -48,9 +50,11 @@ function App() {
   return (
     <QueryClientProvider client={query}>
       <CartContextProvider>
+        <UserProfileContextProvider>
         <Provider store={store}>
           <RouterProvider router={router} />
         </Provider>
+        </UserProfileContextProvider>
       </CartContextProvider>
     </QueryClientProvider>
   );

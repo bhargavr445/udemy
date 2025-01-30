@@ -24,3 +24,11 @@ import axios from 'axios';
 
 // export default axiosInstance;
 
+
+axios.interceptors.request.use(
+    (req) => {
+        // console.log('Interceptor::',req);
+        return req;
+    },
+    (error) => {}
+)

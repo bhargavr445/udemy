@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { VehicleActions } from '../../../store/Vehicle.reducer';
 import VehicleCard from '../Vehicle-Card/Vehicle-Card';
 import Pagination from '../../../Commons/Components/Pagination';
+import VehicleCounter from '../VehicleCounter';
 
 export default function VehicleOverview() {
 
@@ -29,6 +30,10 @@ export default function VehicleOverview() {
 
     useEffect(() => {
         fetchVehicleData()
+        return () => {
+            console.log('destroyed...');
+            
+        }
     }, [fetchVehicleData])
 
     useEffect(() => {
@@ -46,6 +51,8 @@ export default function VehicleOverview() {
     return (
         <div>
             {vehicleCardsWithPagination}
+
+            <VehicleCounter />
            
         </div>
     )
