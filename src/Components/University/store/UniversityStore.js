@@ -26,7 +26,9 @@ export const fetchUniversityData = () => {
 
     return async (dispatch) => {
         dispatch(UniversityActions.isApiLoading(true));
-        const response = await axios.get('http://universities.hipolabs.com/search');
+        const response = await axios.get('http://universities.hipolabs.com/search?country=United+Kingdom');
+        console.log(response);
+        
         if (response.status !== 200) {
         dispatch(UniversityActions.isApiLoading(false));
 

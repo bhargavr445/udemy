@@ -14,6 +14,7 @@ export default function VehicleCard({ vehicle: { MakeId, MakeName, VehicleTypeId
 
     return (
         <div className={classes.card}>
+            <input type="text" />
             <div className={classes.card_content}>
                 <h2 className={classes.card_title}>{MakeName}</h2>
                 <p className={classes.card_author}>{VehicleTypeName}</p>

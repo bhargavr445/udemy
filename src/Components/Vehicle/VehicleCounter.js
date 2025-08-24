@@ -52,7 +52,7 @@ export default function VehicleCounter() {
     refList.push(updateName);
 
     if(refList.length > 1) {
-        console.log(refList[0] === refList[1])
+        // console.log(refList[0] === refList[1])
     }
 
     return (

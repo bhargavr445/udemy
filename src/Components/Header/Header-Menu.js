@@ -1,5 +1,5 @@
 import React, { useContext, use } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { CartContext } from '../../Context/Cart-Context/Cart-Context';
 import shoppingicon from '../../shopping-cart-dark.png';
 import imageIcon from '../../image.png';
@@ -7,7 +7,12 @@ import classes from './Header_menu.module.css';
 import { UserProfileContext } from '../../Context/userProfileContext';
 
 export default function HeaderMenu() {
+
+  (()=> {
+    console.log('IIF')
+    })();
   console.log('Header...');
+  const nav = useNavigate();
   const {noOfItems} = useContext(CartContext);
 
       const {userProfile} = use(UserProfileContext)
@@ -26,7 +31,8 @@ export default function HeaderMenu() {
     { label: 'Movies', navigationUrl: '/movies' },
     { label: 'Udemy', navigationUrl: '/udemy' },
     { label: 'University', navigationUrl: '/university' },
-    { label: 'University Tanstrack', navigationUrl: '/university-tanstrack' }
+    { label: 'University Tanstrack', navigationUrl: '/university-tanstrack' },
+    { label: 'Appointment', navigationUrl: '/appointment' }
   ]
   return (
     <header>
@@ -39,7 +45,7 @@ export default function HeaderMenu() {
                 {navItem.label}</NavLink>
             </li>
             )}
-            <li className={`${classes.menu_item} ${classes.cart}`}>
+            <li className={`${classes.menu_item} ${classes.cart}`} onClick={noOfItems > 0 ? () => nav('cart') : null}>
                 <Link>
                     <img src={shoppingicon} className={classes.cart_icon} alt='no url found' />
                     <span className={classes.cart_count}>{noOfItems}</span>

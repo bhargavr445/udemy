@@ -82,3 +82,7 @@
     justify-content: center;
     width: 100%;
 }
+
+input {
+    field-sizing: content;
+}

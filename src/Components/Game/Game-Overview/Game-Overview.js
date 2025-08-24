@@ -10,6 +10,11 @@ const GameCardSkeleton = lazy(() => import('../Game-Card-Skeleton/Game-Card-Skel
 
 function GameOverview() {
 
+    const [testState] = useState('Bh');
+    console.log(testState[0]);
+    // console.log(testState[1]());
+    
+
     const optionsList = [
         {gameType: 'PC', gameCode: 'pc'},
         {gameType: 'xbox', gameCode: 'xb'},
@@ -47,7 +52,7 @@ function GameOverview() {
 
     return (
         <>
-       < GameCounter />
+       < GameCounter testState={testState}/>
         <CustomSelect optionsList={optionsList} displayProp={'gameType'} onOptionSelection={onOptionSelection}/>
         <Suspense fallback={<div>Loading...</div>}>
             {gamesCardComponent}

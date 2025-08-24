@@ -1,8 +1,8 @@
-import React, { useCallback, useState } from 'react'
+import React, { memo, useCallback, useState } from 'react'
 
 const functionRef = [];
 
-export default function GameCounter() {
+function GameCounter() {
 
     const [counter, setCounter] = useState(0);
 
@@ -33,3 +33,5 @@ export default function GameCounter() {
         </>
     )
 }
+
+export default memo(GameCounter);

@@ -7,6 +7,7 @@ import { useUniversityContext } from '../../Context/university/UniversityContext
 import { fetchUniversities } from '../../http/University';
 import { fetchUniversityData } from './store/UniversityStore';
 import UniversityTable from './University-Table';
+import { useDebounce } from '../../hooks/useDebounce';
 
 const props = ['country', 'name'];
 
@@ -16,7 +17,7 @@ function UniversityOverview() {
         queryKey: ['universityList'],
         queryFn: fetchUniversities
     });
-    console.log(queryData);
+    // console.log(queryData);
 
 
     // const { apiResponse } = useFetch('http://localhost:3010/api/countrys');
@@ -29,6 +30,8 @@ function UniversityOverview() {
     const universityList = useSelector((state) => state.university.universityApiResponse);
     const apiLoading = useSelector((state) => state.university.universityApiLoading);
 
+    const debouncedText = useDebounce(filterText, 1000);
+
 
     useEffect(() => {
         dispatch(fetchUniversityData());
@@ -39,9 +42,9 @@ function UniversityOverview() {
         setFilteredRecords(filteredRecordsList)
     }
 
-    useEffect(() => {
-        filterRecords(universityList, filterText);
-    }, [universityList, filterText]);
+    useEffect(() => {        
+        filterRecords(universityList, debouncedText);
+    }, [universityList, debouncedText]);
 
     let universityCardComp = apiLoading ? 'Loading...' : '';
     let countSection = apiLoading || <p>{filteredRecords?.length} Records Found</p>;
