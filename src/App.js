@@ -1,4 +1,4 @@
-import { lazy } from 'react';
+import { lazy, useEffect, useState } from 'react';
 import { Provider } from 'react-redux';
 import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom';
 import './App.css';
@@ -15,6 +15,9 @@ import Login from './Components/login/Login';
 import UniversityTanstrack from './Components/university-tanstrack/universityTanstrack';
 import { UserProfileContextProvider } from './Context/userProfileContext';
 import UserProfileCheck from './Commons/Components/UserProfileCheck';
+import Cart from './Components/Cart/Cart';
+import CartProtectionWrapper from './Components/Cart/CartProtectionWrapper';
+import AppointmentOverview from './Components/Appointments/AppointmentOverview';
 const UdemyOverview = lazy(() => import('./Components/Udemy/Udemy.Overview'));
 const GameOverview = lazy(() => import('./Components/Game/Game-Overview/Game-Overview'));
 
@@ -39,7 +42,13 @@ const router = createBrowserRouter([
         path: 'university', element: <University />
       },
       {
+        path: 'cart', element: <CartProtectionWrapper><Cart /></CartProtectionWrapper>  
+      },
+      {
         path: 'university-tanstrack', element: <UniversityTanstrack />
+      },
+      {
+        path: 'appointment', element: <AppointmentOverview />
       }
     ]
   },
@@ -47,13 +56,44 @@ const router = createBrowserRouter([
 const query = new QueryClient()
 function App() {
 
+  const [score, setScore] = useState({
+    score: 0,
+    wickets: 0,
+    overs: 0
+  });
+
+  useEffect(() => {
+    const ws = new WebSocket("ws://localhost:8080");
+
+    ws.onopen = () => {
+      console.log('connection opened...');
+    }
+
+    ws.onmessage = (event) => {
+      console.log('Message received...');
+      console.log(event.data);
+      setScore(JSON.parse(event.data))
+    }
+
+    ws.onclose = () => {
+      console.log('On Close...');
+    }
+
+    return () => {
+      ws.close()
+    }
+  }, []);
+
   return (
     <QueryClientProvider client={query}>
       <CartContextProvider>
         <UserProfileContextProvider>
         <Provider store={store}>
+        
           <RouterProvider router={router} />
         </Provider>
+        {/* <div>Runs: {score?.score}/{score?.wickets}</div>
+        <div>Overs: {score?.overs}</div> */}
         </UserProfileContextProvider>
       </CartContextProvider>
     </QueryClientProvider>

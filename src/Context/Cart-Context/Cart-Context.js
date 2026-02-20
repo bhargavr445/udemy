@@ -6,6 +6,10 @@ export const CartContextProvider = ({ children }) => {
 
     const [cartItems, setCartItems] = useState([]);
 
+    const removeItemFromCart = (item) => {
+        setCartItems((prevItems) => prevItems.filter(prevItem => prevItem.customId !== item.customId));
+    }
+
     const addItemToCartInContext = (e) => {
         const { MakeId, MakeName, VehicleTypeId, VehicleTypeName, customId } = e;
         const elementExists = cartItems.find(item => item.customId === customId)
@@ -14,7 +18,7 @@ export const CartContextProvider = ({ children }) => {
         }
     }
 
-    return <CartContext.Provider value={{ cartItems, addItemToCartInContext, noOfItems: cartItems.length }}>
+    return <CartContext.Provider value={{ cartItems, addItemToCartInContext, noOfItems: cartItems.length, removeItemFromCart }}>
         {children}
     </CartContext.Provider>
 

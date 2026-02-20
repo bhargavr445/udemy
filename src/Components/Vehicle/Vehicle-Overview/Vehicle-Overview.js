@@ -5,13 +5,16 @@ import { VehicleActions } from '../../../store/Vehicle.reducer';
 import VehicleCard from '../Vehicle-Card/Vehicle-Card';
 import Pagination from '../../../Commons/Components/Pagination';
 import VehicleCounter from '../VehicleCounter';
+import { useDebounce } from '../../../hooks/useDebounce';
 
 export default function VehicleOverview() {
 
     const dispatch = useDispatch();
 
+    const debounceValue = useDebounce();
+
     const apiResp = useSelector((state) => state.vehicle.vehicleApiResponse)
-    console.log(apiResp);
+    // console.log(apiResp);
 
     const [vehicleInfo, setVehicleInfo] = useState(null);
     const [paginatedRecords, setPaginatedRecords] = useState([]);
@@ -31,7 +34,7 @@ export default function VehicleOverview() {
     useEffect(() => {
         fetchVehicleData()
         return () => {
-            console.log('destroyed...');
+            // console.log('destroyed...');
             
         }
     }, [fetchVehicleData])
@@ -41,7 +44,7 @@ export default function VehicleOverview() {
     }, [dispatch])
 
     function paginatedListHandler(dataList) {
-        console.log(dataList);
+        // console.log(dataList);
         setPaginatedRecords(dataList)
     }
 
@@ -50,6 +53,7 @@ export default function VehicleOverview() {
 
     return (
         <div>
+            <h1>Hello</h1>
             {vehicleCardsWithPagination}
 
             <VehicleCounter />

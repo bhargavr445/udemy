@@ -7,13 +7,15 @@ import { defineCustomElements } from 'bhargav-uc-components/loader';
 import axios from 'axios';
 
 axios.interceptors.request.use((config) => {
-  console.log(config);
+  // console.log(config);
   config.headers.Authorization = `Bearer ${sessionStorage.getItem('TOKEN')}`;
   return config;
 });
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+// console.log(App);
 root.render(
+ 
   // <React.StrictMode>
     <App />
   // </React.StrictMode>
