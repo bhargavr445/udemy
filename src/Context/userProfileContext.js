@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useMemo, useState } from "react";
 
 export const UserProfileContext = createContext({userName: '', role: ''});
 
@@ -10,7 +10,8 @@ export const  UserProfileContextProvider = ({children}) => {
         setUserProfile(value);
     }
 
+    const contextValue = useMemo(() => ({ userProfile, setUserProfileFromApi }), [userProfile]);
 
-    return <UserProfileContext value={{userProfile, setUserProfileFromApi}}>{children}</UserProfileContext>
+    return <UserProfileContext.Provider value={contextValue}>{children}</UserProfileContext.Provider>
 
 }

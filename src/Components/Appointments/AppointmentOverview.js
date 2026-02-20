@@ -6,13 +6,9 @@ export default function AppointmentOverview() {
     const [userName, setUserName] = useState('Bhargav');
     const [pageNumber, setPageNumber] = useState(1);
     const [noOfRecordsPerPage, setNoOfRecordsPerPage] = useState(10);
-    
-
     useEffect(() => {
-      // api
 
       return () => {
-
       }
     }, []);
 

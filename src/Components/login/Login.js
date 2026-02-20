@@ -5,14 +5,25 @@ import axios from 'axios';
 import * as Yup from 'yup';
 import { UserProfileContext } from '../../Context/userProfileContext';
 import { useDebounce } from '../../hooks/useDebounce';
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
 
+    const stu = {id: 10, name: 'Sasi'};
+    // sty.id
+    // stu.name
+    // const studentId = stu.id;
+    // const name = stu.name;
+
+    const {id: studentId, mame} = stu;
 
 
     const timerRef = useRef(null);
     const isPasswordError = useRef(true);
     const { setUserProfileFromApi } = use(UserProfileContext);
+    const navigate = useNavigate();
+    console.log(navigate);
+    
 
     const initialValues = {
         userName: 'bhargavrg445',
@@ -45,8 +56,8 @@ function Login() {
 
     const onSubmit = (values) => {
         console.log(values);
-        values.resetForm();
-        // login(values);
+        // values.resetForm();
+        login(values.values);
     }
 
     async function login(values) {
@@ -55,6 +66,7 @@ function Login() {
             const { userName, role } = response.data.data.user;
             setUserProfileFromApi({ userName, role })
             sessionStorage.setItem('TOKEN',response.data.data.token);
+            navigate('/vehicle');
         } catch (error) {
             console.log(error);
         }
