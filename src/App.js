@@ -18,8 +18,12 @@ import UserProfileCheck from './Commons/Components/UserProfileCheck';
 import Cart from './Components/Cart/Cart';
 import CartProtectionWrapper from './Components/Cart/CartProtectionWrapper';
 import AppointmentOverview from './Components/Appointments/AppointmentOverview';
+import { LotteryContextProvider } from './Context/Lottery-Context/lottery-context';
 const UdemyOverview = lazy(() => import('./Components/Udemy/Udemy.Overview'));
 const GameOverview = lazy(() => import('./Components/Game/Game-Overview/Game-Overview'));
+const LotteryOverview = lazy(() => import('./Components/Lottery/Lottery-overview'));
+const LotteryCart = lazy(() => import('./Components/Lottery/Lottery-Cart'));
+
 
 
 const router = createBrowserRouter([
@@ -49,6 +53,12 @@ const router = createBrowserRouter([
       },
       {
         path: 'appointment', element: <AppointmentOverview />
+      },
+      {
+        path: 'lottery', element:< LotteryOverview />
+      },
+      {
+        path: 'lottery-cart', element:< LotteryCart />
       }
     ]
   },
@@ -88,10 +98,12 @@ function App() {
     <QueryClientProvider client={query}>
       <CartContextProvider>
         <UserProfileContextProvider>
+          <LotteryContextProvider>
         <Provider store={store}>
         
           <RouterProvider router={router} />
         </Provider>
+        </LotteryContextProvider>
         {/* <div>Runs: {score?.score}/{score?.wickets}</div>
         <div>Overs: {score?.overs}</div> */}
         </UserProfileContextProvider>
