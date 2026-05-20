@@ -5,20 +5,24 @@ import shoppingicon from '../../shopping-cart-dark.png';
 import imageIcon from '../../image.png';
 import classes from './Header_menu.module.css';
 import { UserProfileContext } from '../../Context/userProfileContext';
+import { LotteryContext } from '../../Context/Lottery-Context/lottery-context';
 
 export default function HeaderMenu() {
 
-  (()=> {
-    console.log('IIF')
-    })();
-  console.log('Header...');
+  (() => {
+    // console.log('IIF')
+  })();
+  // console.log('Header...');
   const nav = useNavigate();
-  const {noOfItems} = useContext(CartContext);
+  const { noOfItems } = useContext(CartContext);
+  const { purchasedLotterys } = useContext(LotteryContext);
 
-      const {userProfile} = use(UserProfileContext)
-      console.log(userProfile);
-      
-  
+
+
+  const { userProfile } = use(UserProfileContext)
+  // console.log(userProfile);
+
+
 
   const navItems = [
     // { label: 'Home', navigationUrl: '/home' },
@@ -32,7 +36,8 @@ export default function HeaderMenu() {
     { label: 'Udemy', navigationUrl: '/udemy' },
     { label: 'University', navigationUrl: '/university' },
     { label: 'University Tanstrack', navigationUrl: '/university-tanstrack' },
-    { label: 'Appointment', navigationUrl: '/appointment' }
+    { label: 'Appointment', navigationUrl: '/appointment' },
+    { label: 'Lottery', navigationUrl: '/lottery' }
   ]
   return (
     <header>
@@ -46,13 +51,19 @@ export default function HeaderMenu() {
             </li>
             )}
             <li className={`${classes.menu_item} ${classes.cart}`} onClick={noOfItems > 0 ? () => nav('cart') : null}>
-                <Link>
-                    <img src={shoppingicon} className={classes.cart_icon} alt='no url found' />
-                    <span className={classes.cart_count}>{noOfItems}</span>
-                </Link>
+              <Link>
+                <img src={shoppingicon} className={classes.cart_icon} alt='no url found' />
+                <span className={classes.cart_count}>{noOfItems}</span>
+              </Link>
+            </li>
+            <li className={`${classes.menu_item} ${classes.cart}`} onClick={purchasedLotterys.length > 0 ? () => nav('lottery-cart') : null}>
+              <Link>
+                <img src={shoppingicon} className={classes.cart_icon} alt='no url found' />
+                <span className={classes.cart_count}>{purchasedLotterys.reduce((prev, lot) => prev + lot.quantity, 0)}</span>
+              </Link>
             </li>
             <li>{userProfile?.userName}</li>
-            
+
 
             {/* <li className={`${classes.menu_item} ${classes.cart}`}>
                 <Link>

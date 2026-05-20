@@ -51,17 +51,18 @@ export default function Create() {
 
     title: Yup.string().required('This is a required field'),
 
-    description: Yup.string().required('This is a required field'),
+    description: Yup.string()
+      .required('This is a required field')
+      .oneOf([Yup.ref('title')]),
 
-    price: Yup.number()
-      .required('This is a required field'),
+
+    price: Yup.number().required('This is a required field'),
 
     categoryType: Yup.string().required('This is a required field')
   })
 
   const onSubmit = (values) => {
     console.log(values);
-    // login(values);
   }
 
 

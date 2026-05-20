@@ -1,13 +1,18 @@
 import axios from 'axios';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState, Activity } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { VehicleActions } from '../../../store/Vehicle.reducer';
 import VehicleCard from '../Vehicle-Card/Vehicle-Card';
 import Pagination from '../../../Commons/Components/Pagination';
 import VehicleCounter from '../VehicleCounter';
 import { useDebounce } from '../../../hooks/useDebounce';
+import VehicleActivity from '../Vehicle-Activity';
 
 export default function VehicleOverview() {
+
+    console.log(Activity);
+
+    const [activityMode, setActivityMode] = useState('hidden');
 
     const dispatch = useDispatch();
 
@@ -48,16 +53,23 @@ export default function VehicleOverview() {
         setPaginatedRecords(dataList)
     }
 
+    function toggleActivity(type) {
+        setActivityMode(type);
+    }
+
     let vehicleCardsWithPagination = vehicleInfo?.Results.length > 0 ? <div> {paginatedRecords.map((vehicle) => <VehicleCard key={vehicle.customId} vehicle={vehicle} />)}
             <Pagination dataList={vehicleInfo?.Results} paginatedListHandler={paginatedListHandler} incomingPageSize={9}/></div> : null
 
     return (
         <div>
             <h1>Hello</h1>
+            <button onClick={() => toggleActivity('visible')}>Visible</button>
+            <button onClick={() => toggleActivity('hidden')}>Hide</button>
+            <Activity mode={activityMode}>
+                <VehicleActivity />
+            </Activity>
             {vehicleCardsWithPagination}
-
             <VehicleCounter />
-           
         </div>
     )
 }

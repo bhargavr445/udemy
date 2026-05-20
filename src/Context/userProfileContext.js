@@ -1,8 +1,7 @@
 import { createContext, useMemo, useState } from "react";
 
-export const UserProfileContext = createContext({userName: '', role: ''});
-
-export const  UserProfileContextProvider = ({children}) => {
+export const UserProfileContext = createContext({ userName: '', role: '' });
+export const UserProfileContextProvider = ({ children }) => {
 
     const [userProfile, setUserProfile] = useState(null);
 

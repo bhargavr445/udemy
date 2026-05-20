@@ -154,3 +154,55 @@ input:hover {
   right: 8px;
   transform: translate(50%, -50%);
 }
+
+.lottery-overview {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  padding: 20px;
+}
+
+.lottery-card {
+  background: #ffffff;
+  border: 1px solid #dcdcdc;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 10px;
+}
+
+.lottery-card__content {
+  margin-bottom: 12px;
+}
+
+.lottery-card__title {
+  margin: 0 0 8px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #222;
+}
+
+.lottery-card__id,
+.lottery-card__price {
+  margin: 4px 0;
+  font-size: 14px;
+  color: #555;
+}
+
+.lottery-card__button {
+  background: #1e88e5;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.lottery-card__button:hover {
+  background: #1565c0;
+}

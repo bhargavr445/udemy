@@ -3,52 +3,24 @@ import Schedules from './Schedules';
 
 export default function AppointmentOverview() {
 
-    const [userName, setUserName] = useState('Bhargav');
-    const [pageNumber, setPageNumber] = useState(1);
-    const [noOfRecordsPerPage, setNoOfRecordsPerPage] = useState(10);
-    useEffect(() => {
+  const [userName, setUserName] = useState('Bhargav');
 
-      return () => {
-      }
-    }, []);
+  useEffect(() => {
 
-    useEffect(() => {
-      // constructor api
-    }, [pageNumber, noOfRecordsPerPage]);
-
-    const updateName = useCallback(() => {
-        setUserName('Bhargav R G');
-    }, [])
-
-    // function triggerApiCallTogetNewRecords() { 
-
-    //   setPageNumber((prevPageNumber) => {
-    //     return prevPageNumber+1
-    //   });
-
-
-    // }
-
-    const triggerApiCallTogetNewRecords = useCallback(() => {
-
-      setPageNumber((prevPageNumber) => {
-        return prevPageNumber+1
-      });
-      
-    }, [])
-
-    function changenoOfp() {
-      setPageNumber(1);
-      setNoOfRecordsPerPage(15)
+    return () => {
     }
+  }, []);
 
+  const updateName = useCallback(() => {
+    setUserName(`Bhargav R G ${Math.random()}`);
+  }, [])
 
-    
 
   return (
     <>
-        {userName}
-        <Schedules updateNameFn={updateName}/>
+      {userName}
+      <button onClick={updateName}>Update Name</button>
+      <Schedules userName={userName} />
     </>
   )
 }

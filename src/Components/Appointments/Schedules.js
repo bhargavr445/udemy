@@ -1,9 +1,16 @@
-import { memo } from "react";
+import { memo, useEffect } from "react";
 
-function Schedules({ updateNameFn }) {
+function Schedules({ userName }) {
+
+  useEffect(() => {
+  
+      console.log('Running...');
+      
+    }, []);
+
   return (
     <div>
-      <button onClick={updateNameFn}>Update Name</button>
+      child comp-{userName}
     </div>
   )
 }
